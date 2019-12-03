@@ -1,44 +1,31 @@
+// Program for QuickSort in java
 class QuickSort{
-    public int partition(int a[], int low, int high){
-        int pivot = a[(low+high)/2];
-        while(low<=high){
-        while(a[low]<pivot){
-            low++;
+    public int[] sort(int [] a, int low, int high){
+        int mid = (low+high)/2;
+        int i= low;
+        int j= high;
+        int pivot = a[mid];
+        while(i<=j){
+            while(a[i]<pivot){
+                i++;
+            }
+            while(a[j]>pivot){
+                j--;
+            }
+            if(i<=j){
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+                i++;
+                j--;
+            }
         }
-        while(a[high]>pivot){
-            high--;
+        if(low<j){
+            sort(a,low,j);
         }
-        if(low<=high){
-            int temp = a[low];
-            a[low] = a[high];
-            a[high] = temp;
-            low++;
-            high--;
+        if(high>i){
+            sort(a,i,high);
         }
-        }
-    
-        return low;
-    }
-    public void sort(int a[], int low, int high){
-        int p = partition(a,low,high);
-        if(low < p-1){
-            partition(a,low,p-1);
-        }
-        if(p<high){
-            partition(a,p,high);
-        }
-    }
-    public void printArray(int a[]){
-        for(int i=0;i<a.length;i++)
-            System.out.println(a[i]);
-        
-    }
-}
-public class Runner{
-    public static void main(String[] args){
-        QuickSort qs = new QuickSort();
-        int a[] = {2,5,10,3,7,1,9,8};
-        qs.sort(a,0,a.length-1);
-        qs.printArray(a);
-    }
+        return a;
+    } 
 }
